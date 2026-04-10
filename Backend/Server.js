@@ -31,6 +31,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+app.options("/api/health", cors());
+app.options("/api/contact", cors());
+
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "mail-api" });
 });
