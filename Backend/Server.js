@@ -107,6 +107,6 @@ app.post("/api/contact", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Mail server running on http://172.23.173.51:${PORT}`);
+  console.log(`Mail server running on http://localhost:${PORT}`);
 });
 
