@@ -397,7 +397,8 @@ function setupContactForm() {
   const messageInput = qs('textarea[name="message"]', form);
   let toastTimer = null;
   let isSending = false;
-  const API_BASE = window.location.origin;
+  const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const API_BASE = isLocalHost ? "http://localhost:5000" : window.location.origin;
 
   // Name: letters + spaces only, max 50
   if (nameInput) {
