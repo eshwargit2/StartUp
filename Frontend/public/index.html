@@ -1,89 +1,607 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="google-site-verification" content="google272c2fa40c1f9d11" />
+    <meta name="author" content="Thanjai Tech Studio" />
+    <meta name="language" content="en" />
+    <meta name="geo.region" content="IN-TN" />
+    <meta name="geo.placename" content="Tamil Nadu" />
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.12.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.12.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.12.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <title>Thanjai Tech Studio</title>
+    <meta
+      name="description"
+      content="Thanjai Tech Studio builds high-performance websites, web applications, and SEO-focused digital solutions for startups and businesses across Tamil Nadu."
+    />
+    <meta
+      name="keywords"
+      content="web developer in Thanjavur, website development Tamil Nadu, SEO services Tamil Nadu, web applications India, Thanjai Tech Studio"
+    />
+    <link rel="canonical" href="https://thanjaitechstudio.web.app/" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <meta name="theme-color" content="#ffffff" />
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+    <meta property="og:site_name" content="Thanjai Tech Studio" />
+    <meta property="og:title" content="Best Web Developer in Thanjavur | Thanjai Tech Studio" />
+    <meta
+      property="og:description"
+      content="Websites, web apps, and technical SEO setup that help Tamil Nadu businesses grow online faster."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://thanjaitechstudio.web.app/" />
+    <meta property="og:image" content="https://thanjaitechstudio.web.app/logo.png" />
+    <meta property="og:image:alt" content="Thanjai Tech Studio logo" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Best Web Developer in Thanjavur | Thanjai Tech Studio" />
+    <meta
+      name="twitter:description"
+      content="Websites, web apps, and technical SEO setup that help Tamil Nadu businesses grow online faster."
+    />
+    <meta name="twitter:image" content="https://thanjaitechstudio.web.app/logo.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://thanjaitechstudio.web.app/#organization",
+            "name": "Thanjai Tech Studio",
+            "url": "https://thanjaitechstudio.web.app/",
+            "logo": "https://thanjaitechstudio.web.app/logo.png",
+            "email": "mailto:msselectronic57@gmail.com",
+            "telephone": "+91-8925045931",
+            "sameAs": [
+              "https://in.linkedin.com/in/soundhareshwaran-s-r-85a1012a7",
+              "https://github.com/eshwargit2",
+              "https://www.instagram.com/eshwar_creativity",
+              "https://www.youtube.com/@eshwarelectrotech"
+            ]
+          },
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://thanjaitechstudio.web.app/#localbusiness",
+            "name": "Thanjai Tech Studio",
+            "url": "https://thanjaitechstudio.web.app/",
+            "telephone": "+91-8925045931",
+            "email": "msselectronic57@gmail.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressRegion": "Tamil Nadu",
+              "addressCountry": "IN"
+            },
+            "areaServed": "Tamil Nadu",
+            "priceRange": "$$"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://thanjaitechstudio.web.app/#website",
+            "url": "https://thanjaitechstudio.web.app/",
+            "name": "Thanjai Tech Studio",
+            "inLanguage": "en",
+            "publisher": {
+              "@id": "https://thanjaitechstudio.web.app/#organization"
+            }
+          }
+        ]
       }
-    </style>
+    </script>
+    <link
+      rel="icon"
+      type="image/png"
+      href="logo.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <header class="site-header" id="top">
+      <nav class="nav container" aria-label="Primary">
+        <a class="brand" href="#top" aria-label="Thanjai Tech Studio home">
+          <img
+            class="brand__logo"
+            src="logo.png"
+            alt="Thanjai Tech Studio logo"
+          />
+          <span class="brand__text">Thanjai Tech Studio</span>
+        </a>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
+        <button
+          class="nav__toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navMenu"
+        >
+          <span class="nav__toggle-bars" aria-hidden="true"></span>
+        </button>
+
+        <div class="nav__menu" id="navMenu">
+          <a class="nav__link" href="#services">Services</a>
+          <a class="nav__link" href="#about">About</a>
+          <a class="nav__link" href="#team">Team</a>
+          <a class="nav__link" href="#why">Why Us</a>
+          <a class="nav__link nav__link--cta" href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-label="Hero">
+        <div class="hero__bg" aria-hidden="true">
+          <div class="hero__grid"></div>
+          <div class="hero__glow hero__glow--a"></div>
+          <div class="hero__glow hero__glow--b"></div>
+        </div>
+
+        <div class="container hero__content">
+         
+          <h1 class="hero__title reveal">Building Smart Digital Solutions</h1>
+          <p class="hero__subtitle reveal">
+            We create websites, web apps to grow your business
+          </p>
+
+          <div class="hero__actions reveal">
+            <a class="btn btn--primary" href="#contact">
+              <span>Get Started</span>
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn--ghost" href="#services">
+              <i class="fa-solid fa-grid-2" aria-hidden="true"></i>
+              <span>View Services</span>
+            </a>
+          </div>
+
+          <div class="hero__stats reveal" role="list" aria-label="Highlights">
+            <div class="stat" role="listitem">
+              <div class="stat__value">Fast</div>
+              <div class="stat__label">Delivery cycles</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__value">Modern</div>
+              <div class="stat__label">UI & UX focus</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__value">Secure</div>
+              <div class="stat__label">Best practices</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="services">
+        <header class="section__header reveal">
+          <h2 class="section__title">Services</h2>
+         
+        </header>
+
+        <div class="cards cards--3">
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <h3 class="card__title">Website Development</h3>
+            <p class="card__text">
+              High-converting, responsive websites engineered for business growth,
+              powerful SEO visibility, and ultra-fast loading speed.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <h3 class="card__title">Web Applications</h3>
+            <p class="card__text">
+              Dashboards, login systems, booking flows, admin panels, and custom
+              business tools.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+            <h3 class="card__title">SEO Optimization</h3>
+            <p class="card__text">
+              Dedicated SEO setup with technical audits, on-page optimization,
+              keyword targeting, and search-friendly content structure.
+            </p>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="section section--alt" id="about">
+        <div class="container split">
+          <div class="split__content reveal">
+            <h2 class="section__title">About Thanjai Tech Studio</h2>
+            <p class="lead">
+              Thanjai Tech Studio is a tech service company based in Tamil Nadu,
+              India. We help businesses and startups ship reliable digital
+              products quickly—without sacrificing quality.
+            </p>
+
+            <div class="info-grid">
+              <div class="info reveal">
+                <h3 class="info__title">
+                  <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+                  Mission
+                </h3>
+                <p class="info__text">
+                  Helping businesses go online and grow through modern design,
+                  clean code, and measurable outcomes.
+                </p>
+              </div>
+
+              <div class="info reveal">
+                <h3 class="info__title">
+                  <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                  Modern Stack
+                </h3>
+                <p class="info__text">
+                  HTML/CSS/JS, React, Node.js, REST APIs, Firebase, MongoDB
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="split__visual reveal" aria-hidden="true">
+            <div class="glass">
+              <div class="glass__top">
+                <span class="dot dot--red"></span>
+                <span class="dot dot--yellow"></span>
+                <span class="dot dot--green"></span>
+                <span class="glass__title">thanjaitechstudio.dev</span>
+              </div>
+              <div class="glass__body">
+                <p class="typing-note">
+                  
+                  <span
+                    class="typing-note__text"
+                    id="siteTypingText"
+                    data-typing-text="&lt;section id='thanjaitechstudio.dev'&gt;\n  &lt;h3&gt;Tech Stack&lt;/h3&gt;\n  &lt;ul&gt;\n    &lt;li&gt;HTML/CSS/JS&lt;/li&gt;\n    &lt;li&gt;React&lt;/li&gt;\n    &lt;li&gt;Node.js&lt;/li&gt;\n    &lt;li&gt;REST APIs&lt;/li&gt;\n    &lt;li&gt;Firebase&lt;/li&gt;\n    &lt;li&gt;MongoDB&lt;/li&gt;\n     &lt;/ul&gt;\n&lt;/section&gt;"
+                  ></span>
+                  <span class="typing-note__cursor" aria-hidden="true"></span>
+                </p>
+                <!-- <div class="code-line w-80"></div>
+                <div class="code-line w-60"></div>
+                <div class="code-line w-90"></div>
+                <div class="code-line w-50"></div>
+                <div class="code-pill"></div>
+                <div class="code-line w-70"></div> -->
+              </div>
+            </div>
+            <div class="ring ring--a"></div>
+            <div class="ring ring--b"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="team">
+        <div class="container">
+          <header class="section__header reveal">
+            <h2 class="section__title">Our Developers</h2>
+            
+          </header>
+
+          <div class="carousel reveal" aria-label="Team carousel">
+            <div class="carousel__track" tabindex="0" role="list">
+              <article class="team-card" role="listitem">
+                <div class="avatar" aria-hidden="true">
+                  <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="av2" x1="1" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#22d3ee"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="48" cy="48" r="46" fill="url(#av2)" opacity="0.95"/>
+                    <circle cx="48" cy="36" r="13" fill="#e2e8f0" />
+                    <path d="M24 74c3-12 13-19 24-19s21 7 24 19" fill="#e2e8f0" />
+                  </svg>
+                </div>
+                <h3 class="team-card__name">Soundhareshwaran S R</h3>
+                <p class="team-card__role">Full Stack Developer</p>
+              </article>
+
+              <article class="team-card" role="listitem">
+                <div class="avatar" aria-hidden="true">
+                  <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="av2" x1="1" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#22d3ee"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="48" cy="48" r="46" fill="url(#av2)" opacity="0.95"/>
+                    <circle cx="48" cy="36" r="13" fill="#e2e8f0" />
+                    <path d="M24 74c3-12 13-19 24-19s21 7 24 19" fill="#e2e8f0" />
+                  </svg>
+                </div>
+                <h3 class="team-card__name">YuvaRaj</h3>
+                <p class="team-card__role">Java Developer</p>
+               
+              </article>
+
+              <article class="team-card" role="listitem">
+                <div class="avatar" aria-hidden="true">
+                  <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="av3" x1="0" y1="1" x2="1" y2="0">
+                        <stop offset="0" stop-color="#22d3ee"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="48" cy="48" r="46" fill="url(#av3)" opacity="0.95"/>
+                    <circle cx="48" cy="36" r="13" fill="#e2e8f0" />
+                    <path d="M24 74c3-12 13-19 24-19s21 7 24 19" fill="#e2e8f0" />
+                  </svg>
+                </div>
+                <h3 class="team-card__name">Sharvesh S</h3>
+                <p class="team-card__role">Backend Developer</p>
+              </article>
+
+              <article class="team-card" role="listitem">
+                <div class="avatar" aria-hidden="true">
+                  <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="av4" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#22d3ee"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="48" cy="48" r="46" fill="url(#av4)" opacity="0.95"/>
+                    <circle cx="48" cy="36" r="13" fill="#e2e8f0" />
+                    <path d="M24 74c3-12 13-19 24-19s21 7 24 19" fill="#e2e8f0" />
+                  </svg>
+                </div>
+                <h3 class="team-card__name">Sibi Raj S</h3>
+                <p class="team-card__role">Frontend Developer</p>
+              </article>
+
+              <article class="team-card" role="listitem">
+                <div class="avatar" aria-hidden="true">
+                  <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="av5" x1="1" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#22d3ee"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="48" cy="48" r="46" fill="url(#av5)" opacity="0.95"/>
+                    <circle cx="48" cy="36" r="13" fill="#e2e8f0" />
+                    <path d="M24 74c3-12 13-19 24-19s21 7 24 19" fill="#e2e8f0" />
+                  </svg>
+                </div>
+                <h3 class="team-card__name">Siva Murugan </h3>
+                <p class="team-card__role">Python Developer</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="why">
+        <header class="section__header reveal">
+          <h2 class="section__title">Why Choose Us</h2>
+         
+        </header>
+
+        <div class="why-grid">
+          <div class="why reveal">
+            <i class="fa-solid fa-bolt why__icon" aria-hidden="true"></i>
+            <h3 class="why__title">Fast Delivery</h3>
+            <p class="why__text">Tight timelines with clear milestones and updates.</p>
+          </div>
+          <div class="why reveal">
+            <i class="fa-solid fa-indian-rupee-sign why__icon" aria-hidden="true"></i>
+            <h3 class="why__title">Affordable Pricing</h3>
+            <p class="why__text">Flexible packages for startups and small businesses.</p>
+          </div>
+          <div class="why reveal">
+            <i class="fa-solid fa-pen-nib why__icon" aria-hidden="true"></i>
+            <h3 class="why__title">Modern UI Design</h3>
+            <p class="why__text">Clean layouts, smooth motion, and strong brand feel.</p>
+          </div>
+          <div class="why reveal">
+            <i class="fa-solid fa-puzzle-piece why__icon" aria-hidden="true"></i>
+            <h3 class="why__title">Custom Solutions</h3>
+            <p class="why__text">We build what your business actually needs no bloat.</p>
+          </div>
+          <div class="why reveal">
+            <i class="fa-solid fa-headset why__icon" aria-hidden="true"></i>
+            <h3 class="why__title">Friendly Support</h3>
+            <p class="why__text">Post-launch support to keep things running smoothly.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="contact">
+        <div class="container split split--reverse">
+          <div class="split__content reveal">
+            <h2 class="section__title">Contact</h2>
+            <p class="lead">
+              Tell us what you’re building. We’ll reply with a clear plan, timeline, and quote.
+            </p>
+
+            <div class="contact-cards">
+              <div class="contact-card">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                <div>
+                  <div class="contact-card__label">Phone</div>
+                  <div class="contact-card__value">+91 8925045931</div>
+                </div>
+              </div>
+              <div class="contact-card">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <div>
+                  <div class="contact-card__label">Email</div>
+                  <div class="contact-card__value">msselectronic57@gmail.com</div>
+                </div>
+              </div>
+              <div class="contact-card">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <div>
+                  <div class="contact-card__label">Location</div>
+                  <div class="contact-card__value">Tamil Nadu, India</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="split__visual reveal">
+            <form
+              class="form"
+              id="contactForm"
+              novalidate
+            >
+              <div class="form__row">
+                <label class="field">
+                  <span class="field__label">Name</span>
+                  <input
+                    class="field__input"
+                    name="name"
+                    autocomplete="name"
+                    pattern="[A-Za-z ]{2,50}"
+                    title="Name should contain only letters and spaces."
+                    maxlength="50"
+                    required
+                    placeholder="Your name"
+                  />
+                </label>
+              </div>
+
+              <div class="form__row">
+                <label class="field">
+                  <span class="field__label">Email</span>
+                  <input
+                    class="field__input"
+                    type="email"
+                    name="email"
+                    autocomplete="email"
+                    pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                    title="Please enter a valid Gmail address (example@gmail.com)."
+                    required
+                    placeholder="your@gmail.com"
+                  />
+                </label>
+              </div>
+
+              <div class="form__row">
+                <label class="field">
+                  <span class="field__label">Mobile Number</span>
+                  <input
+                    class="field__input"
+                    type="tel"
+                    name="phone"
+                    autocomplete="tel"
+                    inputmode="numeric"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    title="Please enter exactly 10 digits."
+                    required
+                    placeholder="9876543210"
+                  />
+                </label>
+              </div>
+
+              <div class="form__row">
+                <label class="field">
+                  <span class="field__label">Message</span>
+                  <textarea
+                    class="field__input field__input--area"
+                    name="message"
+                    rows="5"
+                    required
+                    placeholder="Tell us about your website..."
+                  ></textarea>
+                </label>
+              </div>
+
+              <button class="btn btn--primary btn--full" type="submit">
+                <span>Send Message</span>
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              </button>
+
+              <p class="form__hint" id="formHint">
+                By submitting, you agree to be contacted about your request.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__grid">
+        <div class="footer__brand">
+          <div class="brand brand--footer">
+            <img
+              class="brand__logo"
+              src="logo.png"
+              alt="Thanjai Tech Studio logo"
+            />
+            <span class="brand__text">Thanjai Tech Studio</span>
+          </div>
+          <p class="footer__text">
+            Websites, web apps to grow your business for businesses and startups in Tamil Nadu.
+          </p>
+        </div>
+
+        <nav class="footer__links" aria-label="Footer links">
+          <h3 class="footer__title">Quick links</h3>
+          <a href="#services">Services</a>
+          <a href="#team">Team</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="footer__social">
+          <h3 class="footer__title">Social</h3>
+          <div class="social">
+            <a class="social__link" href="https://in.linkedin.com/in/soundhareshwaran-s-r-85a1012a7" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a class="social__link" href="https://github.com/eshwargit2" aria-label="GitHub">
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+            </a>
+            <a class="social__link" href="https://www.instagram.com/eshwar_creativity" aria-label="Instagram">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a class="social__link" href="https://www.youtube.com/@eshwarelectrotech" aria-label="YouTube">
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer__bottom">
+        <p>© <span id="year"></span> Thanjai Tech Studio. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="./script.js" defer></script>
   </body>
 </html>

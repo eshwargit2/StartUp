@@ -1,7 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "Server.js",
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
   "dependencies": {
     "accepts": "^2.0.0",
     "body-parser": "^2.2.2",
@@ -26,6 +29,7 @@
     "etag": "^1.8.1",
     "express": "^5.2.1",
     "finalhandler": "^2.1.1",
+    "firebase-functions": "^6.6.0",
     "forwarded": "^0.2.0",
     "fresh": "^2.0.0",
     "function-bind": "^1.1.2",
@@ -76,7 +80,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Server.js"
+    "start": "nodemon Server.js",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions"
   },
   "author": "",
   "license": "ISC",

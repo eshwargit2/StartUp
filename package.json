@@ -1,0 +1,12 @@
+{
+  "name": "thanjai-tech",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm --prefix Backend run start",
+    "start:backend": "npm --prefix Backend run start",
+    "deploy": "firebase deploy --config Frontend/firebase.json --project thanjaitechstudio",
+    "deploy:hosting": "firebase deploy --only hosting --config Frontend/firebase.json --project thanjaitechstudio",
+    "deploy:functions": "firebase deploy --only functions --config Frontend/firebase.json --project thanjaitechstudio"
+  }
+}

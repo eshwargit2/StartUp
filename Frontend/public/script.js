@@ -397,7 +397,7 @@ function setupContactForm() {
   const messageInput = qs('textarea[name="message"]', form);
   let toastTimer = null;
   let isSending = false;
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = window.location.origin;
 
   // Name: letters + spaces only, max 50
   if (nameInput) {
