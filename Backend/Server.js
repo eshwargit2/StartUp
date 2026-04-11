@@ -54,6 +54,35 @@ const transportConfig = SMTP_HOST
 
 const transporter = nodemailer.createTransport(transportConfig);
 
+async function sendWithFallback(mailOptions) {
+  try {
+    return await transporter.sendMail(mailOptions);
+  } catch (error) {
+    const timeoutCodes = new Set(["ETIMEDOUT", "ESOCKET", "ECONNECTION"]);
+    if (!timeoutCodes.has(error?.code)) {
+      throw error;
+    }
+
+    // Hosting networks can intermittently fail on one SMTP route.
+    // Retry once using Gmail SMTP on STARTTLS (587).
+    const fallbackTransport = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: GMAIL_USER,
+        pass: GMAIL_APP_PASSWORD,
+      },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
+    });
+
+    return fallbackTransport.sendMail(mailOptions);
+  }
+}
+
 const corsOptions = {
   origin: true,
   methods: ["GET", "POST", "OPTIONS"],
@@ -87,7 +116,7 @@ app.post("/api/contact", async (req, res) => {
       return res.status(400).json({ ok: false, error: "Message too short" });
     }
 
-    await transporter.sendMail({
+    const mailOptions = {
       from: `"Thanjai Tech Studio Contact" <${GMAIL_USER}>`,
       to: OWNER_EMAIL,
       replyTo: email,
@@ -129,7 +158,9 @@ app.post("/api/contact", async (req, res) => {
           </div>
         </div>
       `,
-    });
+    };
+
+    await sendWithFallback(mailOptions);
 
     return res.status(200).json({ ok: true, message: "Email sent" });
   } catch (error) {
