@@ -12,6 +12,7 @@ const PORT = Number(process.env.PORT || 5000);
 const GMAIL_USER = process.env.GMAIL_USER || process.env.SMTP_USER;
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
+const MAIL_SEND_DELAY_MS = Number(process.env.MAIL_SEND_DELAY_MS || 1500);
 
 function isValidEmail(value) {
   return /^\S+@\S+\.\S+$/.test(String(value || "").trim());
@@ -55,7 +56,7 @@ app.post("/api/contact", async (req, res) => {
       return res.status(400).json({ ok: false, error: "Message too short" });
     }
 
-    await transporter.sendMail({
+    const mailOptions = {
       from: `"Thanjai Tech Studio Contact" <${GMAIL_USER}>`,
       to: OWNER_EMAIL,
       replyTo: email,
@@ -97,9 +98,19 @@ app.post("/api/contact", async (req, res) => {
           </div>
         </div>
       `,
-    });
+    };
 
-    return res.status(200).json({ ok: true, message: "Email sent" });
+    setTimeout(() => {
+      transporter.sendMail(mailOptions).then((info) => {
+        console.log(
+          `Mail sent: messageId=${info?.messageId || "unknown"}, response=${info?.response || "unknown"}`
+        );
+      }).catch((error) => {
+        console.error("Background mail error:", error);
+      });
+    }, MAIL_SEND_DELAY_MS);
+
+    return res.status(202).json({ ok: true, message: "Message received. Sending email." });
   } catch (error) {
     console.error("Mail error:", error);
     return res.status(500).json({ ok: false, error: "Failed to send email" });
