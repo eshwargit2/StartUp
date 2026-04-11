@@ -14,13 +14,6 @@ const GMAIL_APP_PASSWORD = String(process.env.GMAIL_APP_PASSWORD || process.env.
   .replace(/\s+/g, "")
   .trim();
 const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
-const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
-const SMTP_SECURE = String(process.env.SMTP_SECURE || "true").toLowerCase() === "true";
-
-function isValidEmail(value) {
-  return /^\S+@\S+\.\S+$/.test(String(value || "").trim());
-}
 
 if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
   console.warn(
@@ -28,60 +21,16 @@ if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
   );
 }
 
-const baseTransport = {
+const transporter = nodemailer.createTransport({
+  service: "gmail",
   auth: {
     user: GMAIL_USER,
     pass: GMAIL_APP_PASSWORD,
   },
-  // Fail fast so the API does not hang when SMTP is slow/unreachable.
   connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 15000,
-};
-
-const transportConfig = SMTP_HOST
-  ? {
-      ...baseTransport,
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_SECURE,
-      requireTLS: !SMTP_SECURE,
-    }
-  : {
-      ...baseTransport,
-      service: "gmail",
-    };
-
-const transporter = nodemailer.createTransport(transportConfig);
-
-async function sendWithFallback(mailOptions) {
-  try {
-    return await transporter.sendMail(mailOptions);
-  } catch (error) {
-    const timeoutCodes = new Set(["ETIMEDOUT", "ESOCKET", "ECONNECTION"]);
-    if (!timeoutCodes.has(error?.code)) {
-      throw error;
-    }
-
-    // Hosting networks can intermittently fail on one SMTP route.
-    // Retry once using Gmail SMTP on STARTTLS (587).
-    const fallbackTransport = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      requireTLS: true,
-      auth: {
-        user: GMAIL_USER,
-        pass: GMAIL_APP_PASSWORD,
-      },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
-    });
-
-    return fallbackTransport.sendMail(mailOptions);
-  }
-}
+});
 
 const corsOptions = {
   origin: true,
@@ -160,9 +109,11 @@ app.post("/api/contact", async (req, res) => {
       `,
     };
 
-    await sendWithFallback(mailOptions);
+    void transporter.sendMail(mailOptions).catch((error) => {
+      console.error("Background mail error:", error);
+    });
 
-    return res.status(200).json({ ok: true, message: "Email sent" });
+    return res.status(202).json({ ok: true, message: "Message received. Sending email." });
   } catch (error) {
     console.error("Mail error:", error);
     const timeoutCodes = new Set(["ETIMEDOUT", "ESOCKET", "ECONNECTION"]);
@@ -176,13 +127,7 @@ app.post("/api/contact", async (req, res) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Mail server running on http://localhost:${PORT}`);
-    if (SMTP_HOST) {
-      console.log(
-        `SMTP mode -> host=${SMTP_HOST}, port=${SMTP_PORT}, secure=${SMTP_SECURE}, user=${GMAIL_USER ? "set" : "missing"}`
-      );
-    } else {
-      console.log(`Gmail service mode -> user=${GMAIL_USER ? "set" : "missing"}`);
-    }
+    console.log(`Gmail service mode -> user=${GMAIL_USER ? "set" : "missing"}`);
   });
 }
 
