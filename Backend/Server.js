@@ -14,11 +14,17 @@ const GMAIL_APP_PASSWORD = String(process.env.GMAIL_APP_PASSWORD || process.env.
   .replace(/\s+/g, "")
   .trim();
 const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
+const MAIL_SEND_DELAY_MS = Number(process.env.MAIL_SEND_DELAY_MS || 2000);
+const MAIL_MAX_ATTEMPTS = Number(process.env.MAIL_MAX_ATTEMPTS || 3);
 
 if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
   console.warn(
     "Missing env vars. Set GMAIL_USER, GMAIL_APP_PASSWORD, OWNER_EMAIL in Backend/.env"
   );
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const transporter = nodemailer.createTransport({
@@ -115,10 +121,28 @@ app.post("/api/contact", async (req, res) => {
 
     setImmediate(async () => {
       try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log(
-          `Mail sent: messageId=${info?.messageId || "unknown"}, response=${info?.response || "unknown"}`
-        );
+        await sleep(MAIL_SEND_DELAY_MS);
+
+        let lastError = null;
+        for (let attempt = 1; attempt <= MAIL_MAX_ATTEMPTS; attempt += 1) {
+          try {
+            const info = await transporter.sendMail(mailOptions);
+            console.log(
+              `Mail sent: attempt=${attempt}, messageId=${info?.messageId || "unknown"}, response=${info?.response || "unknown"}`
+            );
+            return;
+          } catch (error) {
+            lastError = error;
+            console.error(`Background mail attempt ${attempt} failed:`, error);
+            if (attempt < MAIL_MAX_ATTEMPTS) {
+              await sleep(attempt * 1500);
+            }
+          }
+        }
+
+        if (lastError) {
+          console.error("Background mail error: all attempts failed", lastError);
+        }
       } catch (error) {
         console.error("Background mail error:", error);
       }
