@@ -10,8 +10,13 @@ app.use(express.json());
 
 const PORT = Number(process.env.PORT || 5000);
 const GMAIL_USER = process.env.GMAIL_USER || process.env.SMTP_USER;
-const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
+const GMAIL_APP_PASSWORD = String(process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || "")
+  .replace(/\s+/g, "")
+  .trim();
 const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
+const SMTP_HOST = process.env.SMTP_HOST;
+const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
+const SMTP_SECURE = String(process.env.SMTP_SECURE || "true").toLowerCase() === "true";
 
 function isValidEmail(value) {
   return /^\S+@\S+\.\S+$/.test(String(value || "").trim());
@@ -23,8 +28,7 @@ if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
   );
 }
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
+const baseTransport = {
   auth: {
     user: GMAIL_USER,
     pass: GMAIL_APP_PASSWORD,
@@ -33,7 +37,22 @@ const transporter = nodemailer.createTransport({
   connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 15000,
-});
+};
+
+const transportConfig = SMTP_HOST
+  ? {
+      ...baseTransport,
+      host: SMTP_HOST,
+      port: SMTP_PORT,
+      secure: SMTP_SECURE,
+      requireTLS: !SMTP_SECURE,
+    }
+  : {
+      ...baseTransport,
+      service: "gmail",
+    };
+
+const transporter = nodemailer.createTransport(transportConfig);
 
 const corsOptions = {
   origin: true,
@@ -126,6 +145,13 @@ app.post("/api/contact", async (req, res) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Mail server running on http://localhost:${PORT}`);
+    if (SMTP_HOST) {
+      console.log(
+        `SMTP mode -> host=${SMTP_HOST}, port=${SMTP_PORT}, secure=${SMTP_SECURE}, user=${GMAIL_USER ? "set" : "missing"}`
+      );
+    } else {
+      console.log(`Gmail service mode -> user=${GMAIL_USER ? "set" : "missing"}`);
+    }
   });
 }
 
