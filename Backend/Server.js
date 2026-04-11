@@ -10,12 +10,12 @@ app.use(express.json());
 
 const PORT = Number(process.env.PORT || 5000);
 const GMAIL_USER = process.env.GMAIL_USER || process.env.SMTP_USER;
-const GMAIL_APP_PASSWORD = String(process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || "")
-  .replace(/\s+/g, "")
-  .trim();
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
-const MAIL_SEND_DELAY_MS = Number(process.env.MAIL_SEND_DELAY_MS || 2000);
-const MAIL_MAX_ATTEMPTS = Number(process.env.MAIL_MAX_ATTEMPTS || 3);
+
+function isValidEmail(value) {
+  return /^\S+@\S+\.\S+$/.test(String(value || "").trim());
+}
 
 if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
   console.warn(
@@ -23,33 +23,13 @@ if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
   );
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  family: 4,
+  service: "gmail",
   auth: {
     user: GMAIL_USER,
     pass: GMAIL_APP_PASSWORD,
   },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 15000,
 });
-
-const corsOptions = {
-  origin: true,
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-app.use(cors(corsOptions));
-app.options(/.*/, cors(corsOptions));
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "mail-api" });
@@ -75,7 +55,7 @@ app.post("/api/contact", async (req, res) => {
       return res.status(400).json({ ok: false, error: "Message too short" });
     }
 
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"Thanjai Tech Studio Contact" <${GMAIL_USER}>`,
       to: OWNER_EMAIL,
       replyTo: email,
@@ -117,54 +97,15 @@ app.post("/api/contact", async (req, res) => {
           </div>
         </div>
       `,
-    };
-
-    setImmediate(async () => {
-      try {
-        await sleep(MAIL_SEND_DELAY_MS);
-
-        let lastError = null;
-        for (let attempt = 1; attempt <= MAIL_MAX_ATTEMPTS; attempt += 1) {
-          try {
-            const info = await transporter.sendMail(mailOptions);
-            console.log(
-              `Mail sent: attempt=${attempt}, messageId=${info?.messageId || "unknown"}, response=${info?.response || "unknown"}`
-            );
-            return;
-          } catch (error) {
-            lastError = error;
-            console.error(`Background mail attempt ${attempt} failed:`, error);
-            if (attempt < MAIL_MAX_ATTEMPTS) {
-              await sleep(attempt * 1500);
-            }
-          }
-        }
-
-        if (lastError) {
-          console.error("Background mail error: all attempts failed", lastError);
-        }
-      } catch (error) {
-        console.error("Background mail error:", error);
-      }
     });
 
-    return res.status(202).json({ ok: true, message: "Message received. Sending email." });
+    return res.status(200).json({ ok: true, message: "Email sent" });
   } catch (error) {
     console.error("Mail error:", error);
-    const timeoutCodes = new Set(["ETIMEDOUT", "ESOCKET", "ECONNECTION"]);
-    if (timeoutCodes.has(error?.code)) {
-      return res.status(504).json({ ok: false, error: "Mail server timeout. Please try again." });
-    }
     return res.status(500).json({ ok: false, error: "Failed to send email" });
   }
 });
 
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Mail server running on http://localhost:${PORT}`);
-    console.log(`Gmail SMTP mode -> user=${GMAIL_USER ? "set" : "missing"}, ipv4=forced`);
-  });
-}
-
-module.exports = app;
-
+app.listen(PORT, () => {
+  console.log(`Mail server running on http://localhost:${PORT}`);
+});
