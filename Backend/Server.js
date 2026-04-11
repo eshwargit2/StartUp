@@ -113,8 +113,15 @@ app.post("/api/contact", async (req, res) => {
       `,
     };
 
-    void transporter.sendMail(mailOptions).catch((error) => {
-      console.error("Background mail error:", error);
+    setImmediate(async () => {
+      try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log(
+          `Mail sent: messageId=${info?.messageId || "unknown"}, response=${info?.response || "unknown"}`
+        );
+      } catch (error) {
+        console.error("Background mail error:", error);
+      }
     });
 
     return res.status(202).json({ ok: true, message: "Message received. Sending email." });
