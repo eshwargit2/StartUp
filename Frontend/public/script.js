@@ -489,11 +489,18 @@ function setupContactForm() {
     }
 
     isSending = true;
+
+    // Prevent indefinite "Sending..." state when the server is slow/unavailable.
+    const controller = new AbortController();
+    const requestTimeoutMs = 15000;
+    const timeoutId = window.setTimeout(() => controller.abort(), requestTimeoutMs);
+
     fetch(`${API_BASE}/api/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      signal: controller.signal,
       body: JSON.stringify({
         name,
         email,
@@ -502,7 +509,7 @@ function setupContactForm() {
       }),
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Request failed");
+        if (!res.ok) throw new Error(`Request failed (${res.status})`);
         return res.json();
       })
       .then(() => {
@@ -510,10 +517,15 @@ function setupContactForm() {
         launchConfettiBurst();
         form.reset();
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err?.name === "AbortError") {
+          showToast("Fix: Server timeout. Please try again.", "error");
+          return;
+        }
         showToast("Fix: Could not send now. Try again.", "error");
       })
       .finally(() => {
+        window.clearTimeout(timeoutId);
         isSending = false;
         if (submitBtn) {
           submitBtn.disabled = false;

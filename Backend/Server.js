@@ -29,6 +29,10 @@ const transporter = nodemailer.createTransport({
     user: GMAIL_USER,
     pass: GMAIL_APP_PASSWORD,
   },
+  // Fail fast so the API does not hang when SMTP is slow/unreachable.
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
 });
 
 const corsOptions = {
@@ -111,6 +115,10 @@ app.post("/api/contact", async (req, res) => {
     return res.status(200).json({ ok: true, message: "Email sent" });
   } catch (error) {
     console.error("Mail error:", error);
+    const timeoutCodes = new Set(["ETIMEDOUT", "ESOCKET", "ECONNECTION"]);
+    if (timeoutCodes.has(error?.code)) {
+      return res.status(504).json({ ok: false, error: "Mail server timeout. Please try again." });
+    }
     return res.status(500).json({ ok: false, error: "Failed to send email" });
   }
 });
