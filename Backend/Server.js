@@ -22,7 +22,11 @@ if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !OWNER_EMAIL) {
 }
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  requireTLS: true,
+  family: 4,
   auth: {
     user: GMAIL_USER,
     pass: GMAIL_APP_PASSWORD,
@@ -127,7 +131,7 @@ app.post("/api/contact", async (req, res) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Mail server running on http://localhost:${PORT}`);
-    console.log(`Gmail service mode -> user=${GMAIL_USER ? "set" : "missing"}`);
+    console.log(`Gmail SMTP mode -> user=${GMAIL_USER ? "set" : "missing"}, ipv4=forced`);
   });
 }
 
